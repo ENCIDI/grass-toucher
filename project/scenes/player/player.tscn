@@ -60,3 +60,5 @@ shape = SubResource("CircleShape2D_dbuw4")
 [node name="CollisionShape2D7" type="CollisionShape2D" parent="."]
 position = Vector2(14, -11)
 shape = SubResource("CircleShape2D_dbuw4")
+
+[node name="Camera2D" type="Camera2D" parent="."]

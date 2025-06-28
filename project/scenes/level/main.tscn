@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1qn4gabauvh"]
+
+[ext_resource type="PackedScene" uid="uid://cwkcuqntjgsbf" path="res://project/scenes/player/player.tscn" id="1_v2amk"]
+[ext_resource type="Texture2D" uid="uid://blyd6scysp0wk" path="res://project/assets/заглушка.jpg" id="2_2mq0g"]
+
+[node name="main" type="Node2D"]
+
+[node name="Заглушка" type="Sprite2D" parent="."]
+position = Vector2(226, 465)
+texture = ExtResource("2_2mq0g")
+
+[node name="Заглушка2" type="Sprite2D" parent="."]
+position = Vector2(928, 147)
+texture = ExtResource("2_2mq0g")
+
+[node name="Заглушка3" type="Sprite2D" parent="."]
+position = Vector2(224, 159)
+texture = ExtResource("2_2mq0g")
+
+[node name="Заглушка4" type="Sprite2D" parent="."]
+position = Vector2(914, 468)
+texture = ExtResource("2_2mq0g")
+
+[node name="Player" parent="." instance=ExtResource("1_v2amk")]
+position = Vector2(578, 323)
+motion_mode = 1
