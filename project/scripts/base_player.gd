@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var pos = position
+var pos : Vector2 = position
 
 @export var stats = {
 	"max_hp": 100,
@@ -11,24 +11,39 @@ var pos = position
 	"interaction_kd": 3,
 }
 
+var hp : int = stats["max_hp"]
+var stamina : float = stats["max_stamina"]
+
+signal stats_changed(current_health, max_health, current_stamina, max_stamina)
+
+func send_ui_data():
+	stats_changed.emit(hp, stats["max_hp"], stamina, stats["max_stamina"])
+
 func _ready() -> void:
-	pass
+	send_ui_data()
 
 func move():
 	var is_sprinting = false
-	var run_time_left = stats["max_stamina"]
 	
-	if Input.is_action_pressed("sprint") and run_time_left > 0:
+	if Input.is_action_pressed("sprint") and stamina > 0 and (
+	Input.is_action_pressed("move_down") or 
+	Input.is_action_pressed("move_up") or 
+	Input.is_action_pressed("move_right") or 
+	Input.is_action_pressed("move_left")):
 		is_sprinting = true
-		run_time_left -= 3
+		stamina -= 1
+		send_ui_data()
 	else:
 		is_sprinting = false
-		if run_time_left < stats["max_stamina"]:
-			run_time_left += 1
-	if run_time_left > stats["max_stamina"]:
-			run_time_left = stats["max_stamina"]
-	if run_time_left < 0:
-			run_time_left = 0
+		if stamina < stats["max_stamina"]:
+			stamina += 0.25
+			send_ui_data()
+	if stamina > stats["max_stamina"]:
+			stamina = stats["max_stamina"]
+			send_ui_data()
+	if stamina < 0:
+			stamina = 0
+			send_ui_data()
 	
 	var move_speed = stats["speed"]
 	
@@ -49,6 +64,7 @@ func heal():
 func deal_damage():
 	pass
 
+@warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
 	move()
 	take_damage()

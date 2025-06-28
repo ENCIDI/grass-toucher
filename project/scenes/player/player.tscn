@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cwkcuqntjgsbf"]
+[gd_scene load_steps=10 format=3 uid="uid://cwkcuqntjgsbf"]
 
 [ext_resource type="Script" uid="uid://dnpfdwk5l2g8t" path="res://project/scripts/base_player.gd" id="1_2a5p2"]
 [ext_resource type="Texture2D" uid="uid://bhrp50klwpx6w" path="res://project/assets/heart.webp" id="2_2a5p2"]
+[ext_resource type="PackedScene" uid="uid://kdmk7fk0npx6" path="res://project/scenes/player/player_UI.tscn" id="3_qb5jb"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2a5p2"]
 animations = [{
@@ -30,6 +31,7 @@ size = Vector2(52, 26)
 radius = 12.0
 
 [node name="Player" type="CharacterBody2D"]
+collision_mask = 6
 script = ExtResource("1_2a5p2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -62,3 +64,7 @@ position = Vector2(14, -11)
 shape = SubResource("CircleShape2D_dbuw4")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="PlayerUI" parent="." instance=ExtResource("3_qb5jb")]
+
+[connection signal="stats_changed" from="." to="PlayerUI" method="_on_player_stats_changed"]
