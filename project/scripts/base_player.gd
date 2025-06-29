@@ -6,7 +6,7 @@ var pos : Vector2 = position
 	"max_hp": 100,
 	"max_stamina": 100,
 	"speed": 800,
-	"sprint_multiplier": 1.5,
+	"sprint_multiplier": 2,
 	"overjump_kd": 3,
 	"interaction_kd": 3,
 }
@@ -14,18 +14,29 @@ var pos : Vector2 = position
 var hp : int = stats["max_hp"]
 var stamina : float = stats["max_stamina"]
 
+signal pos_transfer(x, y)
 signal stats_changed(current_health, max_health, current_stamina, max_stamina)
+
+var is_sprinting : bool = false
+var can_sprint : bool = true
 
 func send_ui_data():
 	stats_changed.emit(hp, stats["max_hp"], stamina, stats["max_stamina"])
+
+func send_pos():
+	pos_transfer.emit(pos.x,pos.y)
 
 func _ready() -> void:
 	send_ui_data()
 
 func move():
-	var is_sprinting = false
 	
-	if Input.is_action_pressed("sprint") and stamina > 0 and (
+	if stamina == 0:
+		can_sprint = false
+	elif stamina >= 30:
+		can_sprint = true
+	
+	if Input.is_action_pressed("sprint") and can_sprint and (
 	Input.is_action_pressed("move_down") or 
 	Input.is_action_pressed("move_up") or 
 	Input.is_action_pressed("move_right") or 
@@ -44,8 +55,9 @@ func move():
 	if stamina < 0:
 			stamina = 0
 			send_ui_data()
+
 	
-	var move_speed = stats["speed"]
+	var move_speed : int
 	
 	if is_sprinting:
 		move_speed = stats["speed"] * stats["sprint_multiplier"]
@@ -54,6 +66,7 @@ func move():
 	
 	velocity = (Input.get_vector("move_left","move_right","move_up","move_down")*move_speed)
 	move_and_slide()
+	send_pos()
 
 func take_damage():
 	pass
