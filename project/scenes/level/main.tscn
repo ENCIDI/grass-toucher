@@ -4,65 +4,32 @@
 [ext_resource type="Texture2D" uid="uid://blyd6scysp0wk" path="res://project/assets/заглушка.jpg" id="2_2mq0g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2mq0g"]
-size = Vector2(261, 194)
+size = Vector2(259, 195)
 
 [node name="main" type="Node2D"]
 
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(385, 217)
-collision_layer = 6
-collision_mask = 8
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(400, 500)
+collision_layer = 2
+collision_mask = 12
 
-[node name="Заглушка" type="Sprite2D" parent="Area2D"]
-position = Vector2(226, 462.5)
-scale = Vector2(1, 1.02577)
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
 texture = ExtResource("2_2mq0g")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(226.5, 461.474)
-scale = Vector2(1, 1.02577)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0.5, -0.5)
 shape = SubResource("RectangleShape2D_2mq0g")
 
-[node name="Area2D2" type="Area2D" parent="."]
-position = Vector2(385, 217)
-collision_layer = 6
-collision_mask = 8
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(1500, 500)
+collision_layer = 2
+collision_mask = 12
 
-[node name="Заглушка2" type="Sprite2D" parent="Area2D2"]
-position = Vector2(928, 147)
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
 texture = ExtResource("2_2mq0g")
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="Area2D2"]
-position = Vector2(929, 149)
-scale = Vector2(1, 1.02577)
-shape = SubResource("RectangleShape2D_2mq0g")
-
-[node name="Area2D3" type="Area2D" parent="."]
-position = Vector2(385, 217)
-collision_layer = 6
-collision_mask = 8
-
-[node name="Заглушка3" type="Sprite2D" parent="Area2D3"]
-position = Vector2(224, 159)
-texture = ExtResource("2_2mq0g")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D3"]
-position = Vector2(225, 159)
-scale = Vector2(1, 1.02577)
-shape = SubResource("RectangleShape2D_2mq0g")
-
-[node name="Area2D4" type="Area2D" parent="."]
-position = Vector2(385, 217)
-collision_layer = 6
-collision_mask = 8
-
-[node name="Заглушка4" type="Sprite2D" parent="Area2D4"]
-position = Vector2(914, 468)
-texture = ExtResource("2_2mq0g")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="Area2D4"]
-position = Vector2(914, 469)
-scale = Vector2(1, 1.02577)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(0.5, -0.5)
 shape = SubResource("RectangleShape2D_2mq0g")
 
 [node name="Player" parent="." instance=ExtResource("1_v2amk")]

@@ -14,7 +14,6 @@ var pos : Vector2 = position
 var hp : int = base_stats["max_hp"]
 var stamina : float = base_stats["max_stamina"]
 
-signal pos_transfer(x, y)
 signal stats_changed(current_health, max_health, current_stamina, max_stamina)
 signal damage(amount)
 
@@ -23,9 +22,6 @@ var can_sprint : bool = true
 
 func send_ui_data():
 	stats_changed.emit(hp, base_stats["max_hp"], stamina, base_stats["max_stamina"])
-
-func send_pos():
-	pos_transfer.emit(pos.x,pos.y)
 
 func _ready() -> void:
 	send_ui_data()
@@ -38,10 +34,7 @@ func move():
 		can_sprint = true
 	
 	if Input.is_action_pressed("sprint") and can_sprint and (
-	Input.is_action_pressed("move_down") or 
-	Input.is_action_pressed("move_up") or 
-	Input.is_action_pressed("move_right") or 
-	Input.is_action_pressed("move_left")):
+	velocity.x != 0 or velocity.y != 0):
 		is_sprinting = true
 		stamina -= 1
 		send_ui_data()
@@ -67,7 +60,6 @@ func move():
 	
 	velocity = (Input.get_vector("move_left","move_right","move_up","move_down")*move_speed)
 	move_and_slide()
-	send_pos()
 
 func take_damage(amount):
 	if hp > 0:
