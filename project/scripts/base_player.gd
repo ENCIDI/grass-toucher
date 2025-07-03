@@ -49,7 +49,6 @@ func move():
 	if stamina < 0:
 			stamina = 0
 			send_ui_data()
-
 	
 	var move_speed : int
 	
@@ -62,6 +61,7 @@ func move():
 	move_and_slide()
 
 func take_damage(amount):
+	hp -= amount
 	if hp > 0:
 		hp -= amount
 	if hp < 0:
@@ -84,3 +84,6 @@ func game_over():
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
 	move()
+
+func _on_enemy_player_damaged(amount: Variant) -> void:
+	take_damage(amount)

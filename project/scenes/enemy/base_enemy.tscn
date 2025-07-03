@@ -1,0 +1,73 @@
+[gd_scene load_steps=7 format=3 uid="uid://b24et5xvqta8r"]
+
+[ext_resource type="Script" uid="uid://daky7j3jbqmio" path="res://project/scripts/base_enemy.gd" id="1_63ies"]
+[ext_resource type="Texture2D" uid="uid://clyy6cq0wyfhf" path="res://project/assets/enemy/enemy_tmp.png" id="2_s4xnn"]
+[ext_resource type="Texture2D" uid="uid://cekefwu74njo" path="res://project/assets/gui/empty_bar.png" id="3_8mpdo"]
+[ext_resource type="Texture2D" uid="uid://d3uq5nvvaecm" path="res://project/assets/gui/hp_bar.png" id="4_nijy5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s4xnn"]
+size = Vector2(80.6102, 81.3173)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3i0gi"]
+radius = 57.0789
+
+[node name="Enemy" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 14
+script = ExtResource("1_63ies")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 1
+position = Vector2(-1.90735e-06, -1.90735e-06)
+scale = Vector2(2.90625, 2.875)
+texture = ExtResource("2_s4xnn")
+
+[node name="Physic_Collision" type="CollisionShape2D" parent="."]
+rotation = 0.785398
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_s4xnn")
+
+[node name="damage_area" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 64
+
+[node name="trigger_area" type="CollisionShape2D" parent="damage_area"]
+shape = SubResource("CircleShape2D_3i0gi")
+
+[node name="hit_area" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 64
+
+[node name="trigger_area" type="CollisionShape2D" parent="hit_area"]
+shape = SubResource("CircleShape2D_3i0gi")
+
+[node name="ui" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="hp_bar" type="TextureProgressBar" parent="ui"]
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 0
+offset_left = -69.0
+offset_top = -98.0
+offset_right = 23.0
+offset_bottom = -75.0
+scale = Vector2(1.5, 1.5)
+value = 50.0
+texture_under = ExtResource("3_8mpdo")
+texture_progress = ExtResource("4_nijy5")
+texture_progress_offset = Vector2(6, 6)
+
+[node name="Label" type="Label" parent="ui"]
+layout_mode = 0
+offset_left = -75.0
+offset_top = 69.0
+offset_right = 76.0
+offset_bottom = 92.0
+
+[connection signal="area_entered" from="damage_area" to="." method="_on_damage_area_area_entered"]
+[connection signal="area_entered" from="hit_area" to="." method="_on_hit_area_area_entered"]
