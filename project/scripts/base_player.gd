@@ -30,7 +30,7 @@ func move():
 	
 	if stamina == 0:
 		can_sprint = false
-	elif stamina >= 30:
+	elif stamina >= 50:
 		can_sprint = true
 	
 	if Input.is_action_pressed("sprint") and can_sprint and (
