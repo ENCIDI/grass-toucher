@@ -36,9 +36,9 @@ func anim():
 		anim = "attack"
 	elif velocity.x == 0 and velocity.y == 0:
 		anim = "idle"
-	elif velocity.x != 0 or velocity.y != 0 and is_sprinting == false:
+	elif (velocity.x != 0 or velocity.y != 0) and is_sprinting == false:
 		anim = "walk"
-	elif velocity.x != 0 or velocity.y != 0 and is_sprinting == true:
+	elif (velocity.x != 0 or velocity.y != 0) and is_sprinting == true:
 		anim = "run"
 	else:
 		anim = "idle"
