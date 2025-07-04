@@ -33,7 +33,7 @@ radius = 12.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_qb5jb"]
 radius = 31.0644
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 8
 collision_mask = 22
 platform_floor_layers = 4294901761
@@ -85,3 +85,4 @@ offset_right = -703.0
 offset_bottom = 392.0
 
 [connection signal="stats_changed" from="." to="Camera2D/PlayerUI" method="_on_player_stats_changed"]
+[connection signal="area_entered" from="player_damage_area" to="." method="_on_player_damage_area_area_entered"]

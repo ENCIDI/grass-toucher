@@ -12,16 +12,12 @@ extends CharacterBody2D
 
 var hp : int = base_stats["max_hp"]
 
-signal player_damaged(amount)
+signal damage_player(amount: int)
 
 func move():
 	pass
 
-func deal_damage(amount):
-	player_damaged.emit(amount)
-
 func take_damage(amount):
-	hp -= amount
 	if hp > 0:
 		hp -= amount
 	if hp < 0:
@@ -33,10 +29,5 @@ func take_damage(amount):
 func _physics_process(delta: float) -> void:
 	hp_bar.value = hp
 
-@warning_ignore("unused_parameter")
 func _on_hit_area_area_entered(area: Area2D) -> void:
-	deal_damage(base_stats["base_damage"])
-
-@warning_ignore("unused_parameter")
-func _on_damage_area_area_entered(area: Area2D) -> void:
-	pass # Replace with function body.
+	damage_player.emit(base_stats["base_damage"])

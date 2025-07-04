@@ -61,19 +61,22 @@ func move():
 	move_and_slide()
 
 func take_damage(amount):
-	hp -= amount
 	if hp > 0:
 		hp -= amount
+		send_ui_data()
 	if hp < 0:
 		hp = 0
+		send_ui_data()
 	if hp == 0:
 		game_over()
 
 func heal(amount):
 	if hp < 100:
 		hp += amount
+		send_ui_data()
 	if hp > 100:
 		hp = 100
+		send_ui_data()
 
 func deal_damage(amount):
 	damage.emit(amount)
@@ -85,5 +88,5 @@ func game_over():
 func _physics_process(delta: float) -> void:
 	move()
 
-func _on_enemy_player_damaged(amount: Variant) -> void:
+func _on_enemy_damage_player(amount: int) -> void:
 	take_damage(amount)
