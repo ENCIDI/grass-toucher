@@ -4,15 +4,18 @@ extends CharacterBody2D
 	"max_hp": 100,
 	"max_stamina": 100,
 	"speed": 800,
-	"sprint_multiplier": 2,
+	"sprint_multiplier": 1.4,
 	"overjump_kd": 3,
 	"interaction_kd": 3,
 }
+
+@onready var sprite = $sprite_map
 
 var pos : Vector2 = position
 
 var hp : int = base_stats["max_hp"]
 var stamina : float = base_stats["max_stamina"]
+var is_attacking : bool = false
 
 signal stats_changed(current_health, max_health, current_stamina, max_stamina)
 signal damage(amount)
@@ -25,6 +28,27 @@ func send_ui_data():
 
 func _ready() -> void:
 	send_ui_data()
+
+func anim():
+	var anim : String
+	
+	if is_attacking == true:
+		anim = "attack"
+	elif velocity.x == 0 and velocity.y == 0:
+		anim = "idle"
+	elif velocity.x != 0 or velocity.y != 0 and is_sprinting == false:
+		anim = "walk"
+	elif velocity.x != 0 or velocity.y != 0 and is_sprinting == true:
+		anim = "run"
+	else:
+		anim = "idle"
+	
+	if velocity.x > 0:
+		sprite.flip_h = false
+	elif velocity.x < 0:
+		sprite.flip_h = true
+	
+	sprite.play(anim)
 
 func move():
 	
@@ -87,6 +111,8 @@ func game_over():
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
 	move()
+	anim()
 
 func _on_enemy_damage_player(amount: int) -> void:
 	take_damage(amount)
+	

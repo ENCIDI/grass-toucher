@@ -7,6 +7,8 @@ extends CharacterBody2D
 	"base_damage": 15,
 }
 
+@onready var hpbar = $ui/hp_bar
+
 var hp : int = base_stats["max_hp"]
 var target_player
 var speed = base_stats["speed"]
@@ -22,11 +24,11 @@ func move():
 	if target_player:
 		var distance = global_position.distance_to(target_player.global_position)
 		var speed_mod : float
-		if distance > 500:
+		if distance > 50:
 			speed_mod = 1.0
-		elif distance > 300 and distance <= 500:
+		elif distance > 20 and distance <= 50:
 			speed_mod = 0.8
-		elif distance <= 100:
+		elif distance <= 20:
 			speed_mod = 0.1
 		
 		var direction = (target_player.global_position - global_position).normalized()
@@ -40,6 +42,7 @@ func take_damage(amount):
 		hp = 0
 	if hp == 0:
 		get_tree().quit()
+	hpbar.value = hp
 
 func find_nearest_player():
 	var players = get_tree().get_nodes_in_group("Player")
@@ -53,6 +56,9 @@ func find_nearest_player():
 		if dist < closest_dist:
 			closest_dist = dist
 			target_player = p
+
+func _ready() -> void:
+	hpbar.value = hp
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
