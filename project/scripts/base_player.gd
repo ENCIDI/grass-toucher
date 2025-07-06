@@ -30,25 +30,25 @@ func _ready() -> void:
 	send_ui_data()
 
 func anim():
-	var anim : String
+	var anima : String
 	
 	if is_attacking == true:
-		anim = "attack"
+		anima = "attack"
 	elif velocity.x == 0 and velocity.y == 0:
-		anim = "idle"
+		anima = "idle"
 	elif (velocity.x != 0 or velocity.y != 0) and is_sprinting == false:
-		anim = "walk"
+		anima = "walk"
 	elif (velocity.x != 0 or velocity.y != 0) and is_sprinting == true:
-		anim = "run"
+		anima = "run"
 	else:
-		anim = "idle"
+		anima = "idle"
 	
 	if velocity.x > 0:
 		sprite.flip_h = false
 	elif velocity.x < 0:
 		sprite.flip_h = true
 	
-	sprite.play(anim)
+	sprite.play(anima)
 
 func move():
 	

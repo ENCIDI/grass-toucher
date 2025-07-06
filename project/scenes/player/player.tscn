@@ -214,4 +214,3 @@ offset_right = -703.0
 offset_bottom = 392.0
 
 [connection signal="stats_changed" from="." to="Camera2D/PlayerUI" method="_on_player_stats_changed"]
-[connection signal="area_entered" from="player_damage_area" to="." method="_on_player_damage_area_area_entered"]

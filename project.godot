@@ -14,9 +14,7 @@ config/name="grass-toucher"
 config/version="0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1"
 run/main_scene="uid://b1qn4gabauvh"
 config/features=PackedStringArray("4.4", "Forward Plus")
-boot_splash/image="uid://dr4sg5tox5tny"
 config/icon="res://icon.svg"
-boot_splash/minimum_display_time=3000
 
 [display]
 
